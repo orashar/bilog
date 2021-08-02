@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+{% if catg_posts %}
+
+    <h1>Posts for {{catg}}</h1>
+
+
+    {% for post in catg_posts %}
+        <li>
+            <a href="{% url 'article-detail' post.pk %}">{{ post.title }}</a>
+            
+            - {{ post.author }}
+            {% if user.is_authenticated %}
+            <small>(
+                <a href="{% url 'update-post' post.pk %}">Edit</a>
+                , <a href="{% url 'delete-post' post.pk %}">Delete</a>
+                )</small>
+                {% endif %}
+                <br/>
+            {{ post.body|slice:":200"|safe }} 
+        </li>
+    {% endfor %}
+
+
+{% else %}
+        <h1>No posts for {{ catg }} </h1>
+
+{% endif %}
+
+
+{% endblock %}

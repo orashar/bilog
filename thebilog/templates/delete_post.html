@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Edit Bilog
+{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+{% if user.id == post.author.id %}
+
+
+    <h1>Delete: {{ post.title }}</h1>
+    <div class="form-group">
+        <form method="POST">{% csrf_token %}
+            <strong>Are you sure ?</strong><br/><br/><br/>
+            <button class="btn btn-secondary">Delete</button>
+        </form>
+    </div>
+
+{% else %}
+    <h2>you can't delete that!</h2>
+
+{% endif %}
+
+{% else %}
+
+    <h1>You need to login first</h1>
+
+{% endif %}
+
+{% endblock %}
